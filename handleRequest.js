@@ -9,52 +9,54 @@ function handleRequest(obj,callback){//处理连接到具体接口的请求
   requestThingaddress(obj,function(result,address){
     if (result==statusEnum.requestStat.NOFACILITY){//物设备不存在
       console.log("HandleRequest: no such facility");
-      reqresult=result;
-      callback(result);
+      callback(result,"");
     }
     else if (result==statusEnum.requestStat.SUCCESS){//物设备存在
       naddress=address;
+      console.log("HandleRequest: facility exists");
       requestInterfacename(obj,function(result,route){
         if (result==statusEnum.requestStat.NOINTERFACE){//物接口不存在
             console.log("HandleRequest: no such interface");
-            reqresult=result;
             callback(result);
         }
         //console.log(naddress+route);
-        reqresult=statusEnum.requestStat.SUCCESS;
-        callback(result,naddress+route);
+        else{
+          console.log("HandleRequest: handle result successful");
+          callback(result,naddress+route);
+        }
       })
     }
   });
 }
 
 function handleAllFacilityRequest(callback){
-  getFacility.getAllFacility(function(err,result){
-    if(err){
-      console.log('[SELECT ERROR] - ',err.message);
-      return;
-    }
+  getFacility.getAllFacility(function(result){
     console.log(result);
     callback(result);
   });
 }
 
-function requestThingaddress(obj,callback){
+function handleAllInterfacesRequest(obj,callback){
   var name=obj.消息内容.请求目标;
   console.log(name);
+  getFacility.getAllInterfaces(name,function(result){
+    callback(result);
+  });
+}
+
+
+
+function requestThingaddress(obj,callback){
+  var name=obj.消息内容.请求目标;
+  console.log("请求目标:"+name);
   var address="";
   var reqstat=statusEnum.requestStat.SUCCESS;
-  getFacility.getAddress(name,function (err, result) {
-        if(err){
-          console.log('[SELECT ERROR] - ',err.message);
-
-          return;
-        }
-        if (result.length==0){
+  getFacility.getAddress(name,function (result) {
+        if (result=="" || !result){
           reqstat=statusEnum.requestStat.NOFACILITY;
         }
         else{
-          address=result[0].address;//物设备地址
+          address=result;//物设备地址
         }
         callback(reqstat,address);
   });
@@ -63,19 +65,16 @@ function requestThingaddress(obj,callback){
 function requestInterfacename(obj,callback){
   var name=obj[statusEnum.packProt.DATA].请求目标;
   var interface_name=obj.消息内容.请求数据;
-  console.log(interface_name);
+  console.log("请求接口："+interface_name);
   var route="";
   var reqstat=statusEnum.requestStat.SUCCESS;
-  getFacility.getInterface(name,interface_name,function (err, result) {
-        if(err){
-          console.log('[SELECT ERROR] - ',err.message);
-          return;
-        }
-        if (result.length==0){
+  getFacility.getInterface(name,interface_name,function (result) {
+        if (!result || result==""){
           reqstat=statusEnum.requestStat.NOINTERFACE;
         }
         else{
-          route=result[0].route;
+          //console.log(result);
+          route=result[statusEnum.thingInterface.INTERFACEADDRESS];
         }//物设备地址
         console.log(route);
         callback(reqstat,route);
@@ -85,3 +84,4 @@ function requestInterfacename(obj,callback){
 
 exports.handleRequest=handleRequest;
 exports.handleAllFacilityRequest=handleAllFacilityRequest;
+exports.handleAllInterfacesRequest=handleAllInterfacesRequest;

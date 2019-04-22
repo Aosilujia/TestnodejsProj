@@ -2,7 +2,7 @@ var fs=require('fs');
 
 var getFacility=require('./getFacility.js');
 
-var testjson="Test/iotpack.json";
+var testjson="./iotpack.json";
 
 var data;
 
