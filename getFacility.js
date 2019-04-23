@@ -2,13 +2,14 @@ var fs=require('fs');
 var path=require('path');
 
 var statusEnum=require('./statusEnum.js');
+var config=require('./configure.js')
 
 //filepath:the filepath storing json setting files
-var filepath='./'
+var filepath=config.facilityspath;
 
 function getAddress(name,callback){
   readJSON(filepath+name+'.json',function(obj){
-    callback(obj[statusEnum.thingInterface.ADDRESS]);
+    callback(obj[config.thingInterface.ADDRESS]);
   });
 }
 

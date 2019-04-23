@@ -1,6 +1,7 @@
 var getFacility=require('./getFacility.js');
 
 var statusEnum=require('./statusEnum.js')
+var config=require('./configure.js')
 
 function handleRequest(obj,callback){//处理连接到具体接口的请求
   var naddress;
@@ -37,8 +38,8 @@ function handleAllFacilityRequest(callback){
 }
 
 function handleAllInterfacesRequest(obj,callback){
-  var name=obj.消息内容.请求目标;
-  console.log(name);
+  var name=obj[config.packProt.DATA][config.packProt.REQUESTTARGET];
+  console.log("请求目标"+name);
   getFacility.getAllInterfaces(name,function(result){
     callback(result);
   });
@@ -47,7 +48,7 @@ function handleAllInterfacesRequest(obj,callback){
 
 
 function requestThingaddress(obj,callback){
-  var name=obj.消息内容.请求目标;
+  var name=obj[config.packProt.DATA][config.packProt.REQUESTTARGET];
   console.log("请求目标:"+name);
   var address="";
   var reqstat=statusEnum.requestStat.SUCCESS;
@@ -63,8 +64,8 @@ function requestThingaddress(obj,callback){
 }
 
 function requestInterfacename(obj,callback){
-  var name=obj[statusEnum.packProt.DATA].请求目标;
-  var interface_name=obj.消息内容.请求数据;
+  var name=obj[config.packProt.DATA][config.packProt.REQUESTTARGET];
+  var interface_name=obj[config.packProt.DATA][config.packProt.REQUESTINTERFACE];
   console.log("请求接口："+interface_name);
   var route="";
   var reqstat=statusEnum.requestStat.SUCCESS;
@@ -74,7 +75,7 @@ function requestInterfacename(obj,callback){
         }
         else{
           //console.log(result);
-          route=result[statusEnum.thingInterface.INTERFACEADDRESS];
+          route=result[config.thingInterface.INTERFACEADDRESS];
         }//物设备地址
         console.log(route);
         callback(reqstat,route);
