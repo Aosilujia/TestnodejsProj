@@ -1,3 +1,8 @@
+/*
+  handleRequest.js:
+  处理各种请求的具体逻辑，对getFacility.js获得的数据进行再处理。
+*/
+
 var getFacility=require('./getFacility.js');
 
 var statusEnum=require('./statusEnum.js')
@@ -30,14 +35,14 @@ function handleRequest(obj,callback){//处理连接到具体接口的请求
   });
 }
 
-function handleAllFacilityRequest(callback){
+function handleAllFacilityRequest(callback){//获得所有物设备的请求
   getFacility.getAllFacility(function(result){
     console.log(result);
     callback(result);
   });
 }
 
-function handleAllInterfacesRequest(obj,callback){
+function handleAllInterfacesRequest(obj,callback){//获得所有物设备下接口的请求
   var name=obj[config.packProt.DATA][config.packProt.REQUESTTARGET];
   console.log("请求目标"+name);
   getFacility.getAllInterfaces(name,function(result){
@@ -47,7 +52,7 @@ function handleAllInterfacesRequest(obj,callback){
 
 
 
-function requestThingaddress(obj,callback){
+function requestThingaddress(obj,callback){//获得物设备地址
   var name=obj[config.packProt.DATA][config.packProt.REQUESTTARGET];
   console.log("请求目标:"+name);
   var address="";
@@ -63,7 +68,7 @@ function requestThingaddress(obj,callback){
   });
 }
 
-function requestInterfacename(obj,callback){
+function requestInterfacename(obj,callback){//获得物接口地址
   var name=obj[config.packProt.DATA][config.packProt.REQUESTTARGET];
   var interface_name=obj[config.packProt.DATA][config.packProt.REQUESTINTERFACE];
   console.log("请求接口："+interface_name);
