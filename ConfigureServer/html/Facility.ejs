@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>所有设备</title>
+<title>设备信息-<%=info.设备名称%></title>
 
 <script type="text/javascript" src="../html/head.js"></script>
 
@@ -12,27 +12,20 @@
 <div class="container">
   <table class="table">
     <tbody>
-      <%for (var i =0;i< facilities.length;i++){ %>
+      <%for (var p in info){ %>
       <tr>
-        <th scope="row"><%=(i+1)%></th>
-        <td><a href=<%="facility?name="+facilities[i] %> ><%= facilities[i] %></a></td>
+        <th scope="row"><%=p+":"%></th>
+        <td><%= info[p] %></td>
       </tr>
       <%} %>
     </tbody>
   </table>
-  <button type="button" class="btn btn-default" >button</button>
+  <a href="listAll"><button type="button" class="btn btn-default">返回</button></a>
 </div>
 
 <script type="text/javascript" src="../html/nav-foot.js"></script>
 
 </body>
 <script type="text/javascript" src="../html/foot.js"></script>
-<script type="text/javascript">
-  window.onload= function(){
-    var ele=document.getElementById("allFacilities");
-    ele.className="active";
-  }
-</script>
-
 
 </html>

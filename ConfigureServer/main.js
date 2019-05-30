@@ -23,6 +23,13 @@ app.get('/', function (req, res) {
    res.render(__dirname+"/html/"+"index",data);
 });
 
+
+app.get('/wenhao', (req, res) => {
+  console.log(req.query)
+  res.send(req.query)
+})
+
+
 app.get('/index.htm', function (req, res) {
    res.sendfile( __dirname + "/html/" + "index.htm" );
 })
@@ -48,6 +55,14 @@ app.get('/listAll',function(req,res){
   });
 });
 
+app.get('/facility',function(req,res){
+  var data={};
+  var param=req.query;
+  getFacility.getFacility(param.name,function(result){
+    data.info=result;
+    res.render(__dirname+"/html/"+"Facility",data);
+  })
+})
 
 
 //设定服务器端口

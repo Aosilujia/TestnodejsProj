@@ -21,7 +21,7 @@ function handleRequest(obj,callback){//处理连接到具体接口的请求
       naddress=address;
       console.log("HandleRequest: facility exists");
       requestInterfacename(obj,function(result,route){
-        if (result==statusEnum.requestStat.NOINTERFACE){//物接口不存在
+        if (result==statusEnum.requestStat.NOINTERFACE){//接口不存在
             console.log("HandleRequest: no such interface");
             callback(result);
         }

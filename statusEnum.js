@@ -1,14 +1,14 @@
 var requestStat={
-  SUCCESS:0,
-  NOFACILITY:1,
-  NOINTERFACE:2,
-  NONE:3
+  SUCCESS:0,  //成功
+  NOFACILITY:1, //无此物设备
+  NOINTERFACE:2,  //无此接口
+  NONE:3  //
 };
 
 var iotPackProtocol={
   DATA:"消息内容",
-  CONNECTREQUEST:"请求连接"
-  
+  CONNECTREQUEST:"请求连接",
+  REQUESTRESULT:"请求响应"
 };
 
 var thingInterface={

@@ -17,9 +17,11 @@ testobj["消息内容"]["请求数据"]="图像数据1";
 
 console.log(testobj);
 
+var selfTopic='3503物管理器'
+
 client.on('connect', function () {
-  client.subscribe('3503');
-  client.publish('3503', JSON.stringify(testobj));
+  client.subscribe(selfTopic);
+  client.publish(selfTopic, JSON.stringify(testobj));
 })
 
 client.on('message', function (topic, message) {
@@ -29,11 +31,11 @@ client.on('message', function (topic, message) {
   //不符合JSON格式可能报错
   var data=JSON.parse(data);
 
-  if (data[config.packProt.REQUESTSENDER]!="3503物管理器"){
+  if (data[config.packProt.REQUESTSENDER]!=selfTopic){
     console.log(data);
     handlePackage.handlePackage(message,function(x){
       console.log("package returns:"+x);
-      client.publish('3503',x);
+      client.publish(selfTopic,x);
     });
   }
 

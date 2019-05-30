@@ -61,24 +61,19 @@ function getAllFacility(callback){
   });
 };
 
-function getAllFacility_r(){
-  var results=new Array();
-  var i=0;
-  fs.readdir(filepath,function(err,menu){
-    if(!menu) {
-      return results;
+//获得物设备的所有信息
+function getFacility(name,callback){
+  readJSON(filepath+name+'.json',function(obj){
+    if (obj=="" || !obj){
+      callback("");
+      return;
     }
-    else {
-      for (var j=0;j<menu.length;j++){
-        if (path.extname(menu[j])=='.json'){
-          results[i]=menu[j].substring(0,menu[j].length-5);
-          i++;
-        }
-      }
-      return results;
+    else{
+      callback(obj);
     }
+    //console.log("interface"+interface);
   });
-};
+}
 
 
 
@@ -127,7 +122,7 @@ function readJSON(filename,callback){
 }
 
 //下面是测试debug用代码
-//var temp="显微镜1"
+var temp="显微镜"
 /*getAddress(temp,function(x){
   console.log(x);
 });*/
@@ -140,8 +135,12 @@ function readJSON(filename,callback){
   console.log(x);
 });*/
 
+getFacility(temp,function(x){
+  console.log(x);
+})
+
 module.exports.getAddress=getAddress;
 module.exports.getInterface=getInterface;
 module.exports.getAllFacility=getAllFacility;
-module.exports.ListAll=getAllFacility_r;
 module.exports.getAllInterfaces=getAllInterfaces;
+module.exports.getFacility=getFacility;
