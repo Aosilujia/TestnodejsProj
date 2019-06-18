@@ -1,7 +1,7 @@
 /*
   handlePackage.js:
   处理通信包的js脚本，主要任务是设置回复包的各种内容。
-  处理内容的逻辑主要通过调用handleRequest.js。
+  处理请求类型的通信包的逻辑主要通过调用handleRequest.js。
 */
 var handleRequest=require('./handleRequest.js')
 

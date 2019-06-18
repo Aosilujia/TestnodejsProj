@@ -64,6 +64,12 @@ app.get('/facility',function(req,res){
   })
 })
 
+app.get('/addFacility',function(req,res){
+
+
+
+})
+
 
 //设定服务器端口
 var server = app.listen(8081, function () {

@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>添加设备</title>
+
+<script type="text/javascript" src="../html/head.js"></script>
+
+</head>
+<body>
+
+
+  <script type="text/javascript" src="../html/nav.js"></script>
+
+<div class="container">
+  <table class="table">
+    <tbody>
+      <%for (var i =0;i< facilities.length;i++){ %>
+      <tr>
+        <th scope="row"><%=(i+1)%></th>
+        <td><a href=<%="facility?name="+facilities[i] %> ><%= facilities[i] %></a></td>
+      </tr>
+      <%} %>
+    </tbody>
+  </table>
+  <button type="button" class="btn btn-default" >button</button>
+</div>
+
+<script type="text/javascript" src="../html/nav-foot.js"></script>
+
+</body>
+<script type="text/javascript" src="../html/foot.js"></script>
+<script type="text/javascript">
+  window.onload= function(){
+    var ele=document.getElementById("allFacilities");
+    ele.className="active";
+  }
+</script>
+
+
+</html>

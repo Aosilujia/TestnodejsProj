@@ -1,3 +1,9 @@
+/*
+  SjtuIotMain.js:
+  整个物关的主函数，
+  
+*/
+
 var mqtt=require('mqtt');
 
 var client  = mqtt.connect('tcp://admin:password@192.168.0.118:61613',)

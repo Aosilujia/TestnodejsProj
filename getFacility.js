@@ -1,9 +1,9 @@
 /*
   getFacility.js：
-  读取物管理下物设备信息
-  物设备信息直接用文件系统储存
+  读取物管理下物设备信息的函数；
+  这个函数实现下物设备信息直接用文件系统储存为.json文件，物设备名称即为文件名。
+  各个函数的主要工作是分析JSON中的内容。
   ××getMysqlFacility.js是使用mysql的版本，不保证运行，可作参考
-
 */
 var fs=require('fs');
 var path=require('path');
@@ -41,7 +41,11 @@ function getInterface(name,interface,callback){
   });
 }
 
-//获得物管理器下的所有物设备名称
+/*
+  getAllFacility：
+  获得物管理器下的所有物设备名称：
+  这个函数的通过fs文件系统与path文件路径模块实现，读取物信息文件夹下的所有文件名称。
+*/
 function getAllFacility(callback){
   var results=new Array();
   var i=0;
